@@ -9,6 +9,7 @@ owns the handbook's GitHub edit links. Publication builds can set
 `VITE_STICKLY_HANDBOOK_SOURCE_REF` to another reviewed Git ref when the source moves.
 
 Run `pnpm run storybook` and open [Handbook / Start here](http://127.0.0.1:6007/?path=/story/handbook-start-here--overview).
+Read the [public hosted handbook](https://stick-ly.github.io/design-system-storybook/?path=/story/handbook-start-here--overview).
 For public Pages hosting and authorized updates, see [hosting and publication](deployment.md).
 
 ## Read in this order

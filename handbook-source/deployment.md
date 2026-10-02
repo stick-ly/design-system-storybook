@@ -6,6 +6,8 @@ hosting on 2 October 2026 after the private Pages plan requirement was verified.
 The canonical design-system source and private npm package remain in
 `stick-ly/design-system`.
 
+Open [the hosted handbook](https://stick-ly.github.io/design-system-storybook/?path=/story/handbook-start-here--overview).
+
 Private Pages requires GitHub Enterprise Cloud. GitHub Free supports Pages from
 public repositories, so the deployment repository contains the generated website.
 See [GitHub's Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages)
