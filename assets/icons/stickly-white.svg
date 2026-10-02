@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Log-In" transform="translate(-13.000000, -15.000000)">
+            <g id="Icon" transform="translate(13.000000, 15.000000)">
+                <path d="M14,27 C21.1797017,27 27,21.1797017 27,14 C27,6.82029825 21.1797017,1 14,1 C6.82029825,1 1,6.82029825 1,14 C1,21.1797017 6.82029825,27 14,27 Z" id="Combined-Shape" stroke="#ffffff" stroke-width="2" transform="translate(14.000000, 14.000000) rotate(-269.000000) translate(-14.000000, -14.000000) "></path>
+                <path d="M13.8216713,20.3580633 C13.8216713,20.3580633 18.6433427,16.3638874 18.6433427,13.7439024 C18.6433427,11.1239175 16.4846069,9 13.8216713,9 C11.1587358,9 9,11.1239175 9,13.7439024 C9,16.3638874 13.8216713,20.3580633 13.8216713,20.3580633 Z" id="Oval-1" fill="#ffffff" transform="translate(13.821671, 14.679032) rotate(30.000000) translate(-13.821671, -14.679032) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

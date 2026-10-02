@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stickly Context-Ranked Translation Options Roadmap</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #0d0a1b;
+      --canvas: #191430;
+      --surface: #231d46;
+      --raised: #302760;
+      --ink: #f7f3ff;
+      --muted: #b8b0d3;
+      --line: #51477b;
+      --brand: #b2a6ee;
+      --accent: #f6a934;
+      --success: #72d69a;
+      --danger: #f18b9b;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--page); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 0%, rgb(123 107 226 / .18), transparent 32rem),
+        linear-gradient(180deg, var(--page), var(--canvas));
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 96px; }
+    h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: -.025em; }
+    h1 { max-width: 900px; font-size: clamp(2.5rem, 7vw, 5.5rem); }
+    h2 { margin-bottom: 18px; font-size: clamp(1.65rem, 4vw, 2.6rem); }
+    h3 { margin-bottom: 10px; font-size: 1.15rem; }
+    p { margin: 0; }
+    a { color: var(--brand); }
+    code, pre { font-family: "SFMono-Regular", Consolas, monospace; }
+    code { color: #e8ddff; }
+    pre {
+      overflow: auto;
+      margin: 16px 0 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #100d20;
+      color: #e8ddff;
+      font-size: .88rem;
+    }
+    section { margin-top: 56px; }
+    .eyebrow {
+      margin-bottom: 10px;
+      color: var(--brand);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .lede { max-width: 790px; margin-top: 20px; color: var(--muted); font-size: 1.12rem; }
+    .meta, .grid { display: grid; gap: 16px; }
+    .meta { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 32px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card, .task, .entry {
+      border: 1px solid rgb(178 166 238 / .22);
+      border-radius: 16px;
+      background: rgb(35 29 70 / .96);
+      box-shadow: 4px 4px 0 rgb(81 71 123 / .65);
+    }
+    .card, .entry { padding: 22px; }
+    .metric { color: var(--muted); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .metric-value { margin-top: 4px; font-size: 1.05rem; font-weight: 800; }
+    .callout { border-color: rgb(246 169 52 / .55); box-shadow: 4px 4px 0 rgb(246 169 52 / .55); }
+    .task { overflow: hidden; }
+    .task-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 18px 20px; background: var(--raised); }
+    .task-body { padding: 20px; }
+    .task-id { color: var(--brand); font-size: .75rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .status {
+      flex: 0 0 auto;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .not-started { color: var(--muted); }
+    .in-progress { color: var(--accent); }
+    .needs-verification { color: var(--brand); }
+    .done { color: var(--success); }
+    .blocked { color: var(--danger); }
+    .badges { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+    .badge { border-radius: 999px; padding: 4px 8px; background: rgb(178 166 238 / .12); color: var(--brand); font-size: .72rem; font-weight: 800; }
+    ul, ol { margin: 12px 0 0; padding-left: 22px; }
+    li + li { margin-top: 7px; }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; background: var(--surface); }
+    th, td { padding: 13px 14px; border-bottom: 1px solid rgb(178 166 238 / .15); text-align: left; vertical-align: top; }
+    th { color: var(--brand); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+    .timeline { display: grid; gap: 14px; }
+    .entry time { display: block; margin-bottom: 6px; color: var(--brand); font-size: .78rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .small { color: var(--muted); font-size: .9rem; }
+    @media (max-width: 800px) {
+      main { padding-top: 28px; }
+      .meta, .grid { grid-template-columns: 1fr; }
+      .task-head { align-items: stretch; flex-direction: column; }
+      .status { align-self: flex-start; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Cross-repository product migration</p>
+    <h1>From one translation string to context-ranked answers</h1>
+    <p class="lede">
+      This is the coordination source of truth for changing Stickly’s translation, storage, review, dictionary,
+      CEFR, and game systems from one canonical answer into a backward-compatible set of ranked translations for
+      the meaning used in the current context.
+    </p>
+    <div class="meta">
+      <div class="card"><p class="metric">Overall status</p><p class="metric-value">In progress</p></div>
+      <div class="card"><p class="metric">Current wave</p><p class="metric-value">CEFR schema v2</p></div>
+      <div class="card"><p class="metric">Repositories</p><p class="metric-value">Backend · Webapp · Extension</p></div>
+      <div class="card"><p class="metric">Compatibility rule</p><p class="metric-value">Keep <code>translation</code></p></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>The problem</h2>
+    <div class="grid">
+      <article class="card callout">
+        <h3>Single-answer grading tests the database</h3>
+        <p>
+          Dictionary and CEFR words often have several valid translations. Without the learner’s original encounter,
+          asking for one stored string rewards guessing Stickly’s preferred wording rather than recalling meaning.
+        </p>
+      </article>
+      <article class="card">
+        <h3>The assumption is systemic</h3>
+        <p>
+          The singular string is currently display copy, persistence data, reverse-card source, game solution,
+          inline-quiz key, edit target, export value, analytics payload, and part of highlight identity.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Context must choose the answer set</h3>
+        <p>
+          Multiple dictionary senses must not all become accepted answers. Stickly needs several natural translations
+          for the specific sense expressed by the sentence around the word.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Hover resolution must be deliberate and bounded</h3>
+        <p>
+          A due-word quiz should resolve the sentence around the current highlight after intentional hover, reuse a
+          bounded cache, and never penalize proficiency when resolution is unavailable or ambiguous.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="critique-log">
+    <h2>Product critique and prototype decisions</h2>
+    <div class="timeline">
+      <article class="entry">
+        <time>Initial critique</time>
+        <p>
+          “Most words have multiple possible translations. I need to find the one that’s requested of me … here I
+          have nothing to hint at the one requested information.”
+        </p>
+        <p class="small">Decision: dictionary and CEFR review must identify a contextual sense and accept more than one natural answer.</p>
+      </article>
+      <article class="entry">
+        <time>Prototype request</time>
+        <p>
+          Preserve the Piano-Tiles interaction while allowing the learner to commit to any accepted translation and
+          narrow the remaining path as characters are selected.
+        </p>
+        <p class="small">Decision: use prefix-compatible candidates rather than one canonical solution.</p>
+      </article>
+      <article class="entry">
+        <time>Prototype correction 1</time>
+        <p>“We need to preview the next characters, not just the current row.”</p>
+        <p class="small">Decision: the production design must use the existing stacked TileKit rows, not a one-row replacement.</p>
+      </article>
+      <article class="entry">
+        <time>Prototype correction 2</time>
+        <p>“The next row of characters is moving into place after selecting a correct character.”</p>
+        <p class="small">
+          Decision: rows remain keyed by stable position. The solved row uses the existing collapse animation and the
+          next row physically moves into its place. Do not recreate the stack after each character.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Prototype correction 3</time>
+        <p>
+          Use the characters from all accepted options at each position. Add or remove only trailing rows when the
+          viable answer length changes.
+        </p>
+        <p class="small">
+          Decision: characters from abandoned paths remain as stable distractors after narrowing; the board does not reshuffle.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Prototype correction 4</time>
+        <p>“When the user chooses the longer path, the distractors are missing from the rows.”</p>
+        <p class="small">
+          Decision: answer-derived characters are placed first, then every row is padded to the configured tile count
+          with deterministic, language-aware distractors—including rows that only exist on the longer branch.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Scope expansion</time>
+        <p>
+          This is a fundamental Stickly update: selection translation should offer ranked options and richer insight;
+          the game consumes all accepted options; the inline quiz resolves the word in the sentence currently under
+          the pointer using a quick cached request.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Inline-quiz continuation and repeat-hover critique</time>
+        <p>
+          Show that another accepted answer continues beyond the current answer length without revealing its letters,
+          preload an exact sentence occurrence on repeat hover, and remove the loading-state flicker.
+        </p>
+        <p class="small">
+          Decision: render smaller, faint dashed continuation slots after the current candidate; remove them as the
+          typed prefix eliminates longer branches. Cache the raw occurrence-scoped promise and its resolved value.
+          A cache hit is applied before opening the bubble. During a first request, keep the quiz shell mounted and
+          temporarily disabled under a quiet status instead of replacing the whole quiz with a loading card.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Fast dictionary-first architecture</time>
+        <p>
+          Replace per-interaction OpenAI lexical enrichment with Microsoft Translator Dictionary Lookup. Start the
+          contextual DeepL translation and dictionary lookup in parallel, persist lexical results on the word, and
+          reuse those options in every later hover quiz and tile-game challenge.
+        </p>
+        <p class="small">
+          Decision: DeepL remains the primary contextual translation. Microsoft dictionary translations are additional
+          accepted answers and carry confidence, part of speech, prefixes, and compact back-translations. OpenAI runs
+          only once when Microsoft returns no usable dictionary entry or does not support the language pair. Missing
+          dictionary data is omitted rather than surfaced as an error.
+        </p>
+      </article>
+      <article class="entry">
+        <time>TileKit row-count correction</time>
+        <p>
+          Every row in one challenge must contain the same number of tiles. The bug was not tile width: individual
+          rows were independently increasing their tile count when several answer branches contributed different
+          characters.
+        </p>
+        <p class="small">
+          Decision: the existing challenge distractor budget determines one tile count, and every row is padded to
+          exactly that count. Retain the original translation first, then retain only ranked alternatives whose
+          character branches fit that budget. Do not alter tile dimensions or expand individual rows for synonyms.
+        </p>
+      </article>
+      <article class="entry">
+        <time>TileKit column-randomization correction</time>
+        <p>
+          Stable rows accidentally left answer-derived characters in the leading columns. This made distractors
+          cosmetic: the player could repeatedly choose the left tile instead of reading the alternatives.
+        </p>
+        <p class="small">
+          Decision: shuffle every completed row with a challenge-seeded order. Tile order remains stable while the
+          player follows a branch, but changes for a new challenge. The existing difficulty-controlled tile count
+          continues to determine how many choices the player must distinguish.
+        </p>
+      </article>
+      <article class="entry">
+        <time>Microsoft back-translation critique</time>
+        <p>
+          Forward dictionary alternatives are not enough for bidirectional practice. For example, English
+          <code>meet</code> can produce German <code>begegnen</code> and <code>entsprechen</code>; a reversed
+          <code>entsprechen</code> challenge also needs that exact entry’s back-translations such as
+          <code>match</code> and <code>correspond</code>.
+        </p>
+        <p class="small">
+          Decision: persist Microsoft back-translations on each translation option, retain the full dictionary entry
+          as a compatibility fallback, and build reverse challenges per sense. Never merge back-translations from
+          sibling target-language meanings.
+        </p>
+      </article>
+      <article class="entry">
+        <time>CEFR dictionary parity critique</time>
+        <p>
+          Supporting Microsoft options for stored personal vocabulary is insufficient if the CEFR test still ships
+          OpenAI-only answer sets and tests only the learning-to-native direction.
+        </p>
+        <p class="small">
+          Decision: enrich generated CEFR decks with Microsoft Dictionary during administrative prewarming, retain
+          OpenAI options as the non-blocking fallback, and mix forward and reverse challenges in the assessment UI.
+          Reverse prompts use only the selected dictionary sense’s back-translations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="contract">
+    <h2>Target additive contract</h2>
+    <p class="small">
+      <code>translation</code> remains the primary display value for old clients. New clients normalize legacy records
+      to one accepted option. “Related” meanings are visible insight but never silently accepted in review.
+    </p>
+    <pre>interface TranslationOption {
+  id: string;
+  text: string;
+  rank: number;
+  senseId?: string;
+  partOfSpeech?: string;
+  status: 'accepted' | 'related';
+  source: 'user' | 'deepl' | 'openai' | 'dictionary';
+}
+
+interface ContextualAnswerSet {
+  options: TranslationOption[];
+  primaryOptionId: string;
+  contextFingerprint?: string;
+  schemaVersion: 2;
+  resolvedAt?: number;
+}</pre>
+    <p class="small" style="margin-top:12px">
+      Persisted words use <code>translationOptions?: TranslationOption[]</code> and
+      <code>translationOptionsVersion?: number</code>. <code>ContextualAnswerSet</code> is the transient resolver
+      response, not a nested persisted word field.
+    </p>
+    <div class="grid" style="margin-top:16px">
+      <article class="card">
+        <h3>Compatibility invariants</h3>
+        <ul>
+          <li>Never change <code>translation</code> from string to array.</li>
+          <li>Never infer reverse-direction options.</li>
+          <li>Old clients may ignore options; new clients must tolerate their absence.</li>
+          <li>Manual translations stay the learner’s primary memory hook.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Privacy and cost invariants</h3>
+        <ul>
+          <li>Do not log page sentences or raw context.</li>
+          <li>Resolve current context only after intentional hover.</li>
+          <li>Cache by normalized context fingerprint, language pair, schema, and model.</li>
+          <li>Static CEFR and dictionary options are generated once, not per play session.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="tilekit-acceptance">
+    <h2>Production TileKit acceptance criteria</h2>
+    <ol class="card" style="padding:24px 24px 24px 46px">
+      <li><code>FlashCard.acceptedAnswers</code> always contains canonical <code>flipside</code>.</li>
+      <li>The service maintains the typed prefix and viable candidate set.</li>
+      <li>A character succeeds when any accepted answer begins with the attempted normalized prefix.</li>
+      <li>Each row initially contains the union of accepted-answer characters at that position.</li>
+      <li>Remaining tile slots receive deterministic language-aware distractors.</li>
+      <li>Row identity and tile order remain stable after a branch; abandoned options become distractors.</li>
+      <li>The solved row collapses through the existing TileRow animation and the next row moves into place.</li>
+      <li>Only trailing rows are added or removed when maximum viable answer length changes.</li>
+      <li>Longer-only rows retain a full distractor set.</li>
+      <li>The power-up removes characters invalid for the current prefix, not merely characters unlike <code>flipside</code>.</li>
+      <li>Completion speaks and records the answer actually built while SRS remains attached to the stored word.</li>
+      <li>The production Storybook story uses the real game service and TileKit; the prototype is removed after parity.</li>
+    </ol>
+  </section>
+
+  <section id="work-packages">
+    <h2>Work packages</h2>
+    <div class="grid">
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">C01</span><h3>Shared contract foundation</h3></div><span class="status done">Done</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">backend</span><span class="badge">webapp</span><span class="badge">extension</span></div>
+          <p>Add compatible option types, normalization, fixtures, limits, and legacy fallback in every repository.</p>
+          <p class="small">Gate: identical legacy/v2 fixtures pass in all repositories before option-producing writers ship.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">G01</span><h3>Production multi-answer engine</h3></div><span class="status needs-verification">Needs verification</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">webapp</span><span class="badge">game</span><span class="badge">storybook</span></div>
+          <p>Extract the prototype’s candidate-prefix behavior into the real TileGameService and stable TileKit row plan.</p>
+          <p class="small">Dependency: C01. Must satisfy every criterion in “Production TileKit acceptance criteria.”</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">B01</span><h3>CEFR deck schema v2</h3></div><span class="status needs-verification">Needs verification</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">backend</span><span class="badge">webapp</span><span class="badge">CEFR</span></div>
+          <p>Publish direction-safe accepted options tied to each generated source context; normalize v1 decks.</p>
+          <p class="small">Dependency: C01 and G01. No runtime AI call during a game.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">E01</span><h3>Ranked selection translation</h3></div><span class="status needs-verification">Needs verification</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">extension</span><span class="badge">backend</span></div>
+          <p>Show a fast primary translation, compact accepted alternatives, part of speech, and related insight.</p>
+          <p class="small">Dependency: C01. Saving creates one word record, not one synonym record per option.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">Q01</span><h3>Current-context hover resolver</h3></div><span class="status needs-verification">Needs verification</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">extension</span><span class="badge">backend</span><span class="badge">privacy</span></div>
+          <p>Add hover dwell, sentence-scoped context extraction, request coalescing, bounded page cache, stale-response protection, and timeout fallback.</p>
+          <p class="small">Do not persist raw page context by default. Do not prefetch every highlight.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">Q02</span><h3>Multi-answer inline quiz</h3></div><span class="status needs-verification">Needs verification</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">extension</span><span class="badge">SRS</span></div>
+          <p>Grade against context-approved candidates, generate feedback against viable answers, and persist matched option metadata.</p>
+          <p class="small">Dependency: Q01. Resolution failure or ambiguity must never produce a proficiency penalty.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">D01</span><h3>Dictionary adoption</h3></div><span class="status not-started">Not started</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">backend</span><span class="badge">webapp</span><span class="badge">SEO</span></div>
+          <p>Keep one SEO-primary translation while exposing authoritative alternatives and using accepted options in review.</p>
+          <p class="small">Public cache misses must not cause unbounded AI generation.</p>
+        </div>
+      </article>
+      <article class="task">
+        <div class="task-head"><div><span class="task-id">M01</span><h3>Secondary surfaces and migration</h3></div><span class="status not-started">Not started</span></div>
+        <div class="task-body">
+          <div class="badges"><span class="badge">flashcards</span><span class="badge">Anki</span><span class="badge">editing</span><span class="badge">analytics</span></div>
+          <p>Define canonical edit behavior, preserve options, update export/reversal/fixtures, and instrument only safe allowlisted metadata.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="rollout">
+    <h2>Deployment and dependency order</h2>
+    <table>
+      <thead><tr><th>Wave</th><th>Owners</th><th>Outcome</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Contract lead + three repository agents</td><td>Additive models, normalizers, legacy/v2 fixtures</td><td>No UI or writer depends on options yet</td></tr>
+        <tr><td>2</td><td>Backend CEFR + webapp game</td><td>First complete multi-answer vertical slice</td><td>Mixed v1/v2 decks and prototype parity</td></tr>
+        <tr><td>3</td><td>Backend translation + extension bubble</td><td>Ranked selection experience</td><td>Latency and save compatibility</td></tr>
+        <tr><td>4</td><td>Backend resolver + extension quiz</td><td>Current-context accepted answers</td><td>Privacy, cache, timeout, no false SRS penalties</td></tr>
+        <tr><td>5</td><td>Dictionary, migration, integration QA</td><td>Broader product adoption</td><td>Emulator flow and controlled exposure</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="verification">
+    <h2>Required verification matrix</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Contracts and compatibility</h3>
+        <ul>
+          <li>Legacy and version-2 RTDB records</li>
+          <li>Mixed deployed client versions</li>
+          <li>Malformed/duplicate option normalization</li>
+          <li>Direction-safe reversal</li>
+          <li>Canonical edit and unknown-field preservation</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Game behavior</h3>
+        <ul>
+          <li>Divergent and shared prefixes</li>
+          <li>Shorter and longer paths</li>
+          <li>Accents, graphemes, spaces, apostrophes, hyphens</li>
+          <li>No row recreation or reshuffle after narrowing</li>
+          <li>Longer-only rows keep distractors</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Extension behavior</h3>
+        <ul>
+          <li>Selection primary plus alternatives</li>
+          <li>Repeated-hover cache hit and request coalescing</li>
+          <li>Stale response cancellation</li>
+          <li>Timeout fallback without SRS failure</li>
+          <li>No context leakage in analytics or persistent cache</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Handoff evidence</h3>
+        <ul>
+          <li>Focused unit/type/build checks per repository</li>
+          <li>Emulator-backed complete flow</li>
+          <li>Storybook and extension playground states</li>
+          <li>Committed before/after/diff visual artifacts for final UI handoff</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="execution-log">
+    <h2>Execution log</h2>
+    <div class="timeline">
+      <article class="entry">
+        <time>June 30, 2026 · Planning and prototype discovery</time>
+        <p>
+          Completed parallel audits of backend, webapp, and extension. Confirmed that singular translation data is
+          embedded across persistence, reversal, highlighting, game grading, inline quiz, dictionary, CEFR, editing,
+          export, and analytics. Built and iterated an isolated Storybook prototype with three successive
+          English/German/Spanish challenges.
+        </p>
+      </article>
+      <article class="entry">
+        <time>June 30, 2026 · Prototype behavior accepted</time>
+        <p>
+          Accepted the multi-answer path logic after four corrections: preview all rows; preserve the real TileKit
+          collapse/slide movement; use answer-derived characters with stable row identity; and fill longer-only rows
+          with deterministic distractors.
+        </p>
+        <p class="small">
+          Current prototype files are uncommitted under
+          <code>webapp/src/app/modules/game/tile-kit/multi-answer-tile-prototype.component{.stories}.ts</code>.
+          They are a behavior reference, not the intended production architecture.
+        </p>
+      </article>
+      <article class="entry">
+        <time>June 30, 2026 · Contract foundation started</time>
+        <p>
+          Started C01 and G01. Repository-specific agents are implementing additive option models/normalizers and the
+          production game foundation. No deployment, commit, or production data migration is authorized.
+        </p>
+      </article>
+      <article class="entry">
+        <time>June 30, 2026 · Token-efficiency constraint</time>
+        <p>
+          Keep agent tasks narrow, avoid repeating repository audits, reuse this roadmap as shared context, and reserve
+          expensive synthesis for cross-repository contracts and integration decisions. The current collaboration
+          runtime does not expose per-agent model selection, so efficiency is enforced through bounded scopes and
+          concise handoffs rather than model routing.
+        </p>
+      </article>
+      <article class="entry">
+        <time>June 30, 2026 · C01 implementation wave · Needs verification</time>
+        <p>
+          Added the version-2 option contract and legacy fallback across all repositories while preserving
+          <code>translation: string</code>. Backend now has bounded normalization/strict validation and focused tests;
+          extension normalizes Firebase reads to a maximum of eight options, always promotes the singular translation
+          to rank-zero accepted, and deliberately leaves synthetic reverse entries singular; webapp maps accepted
+          options into direction-safe flashcards and falls back to the canonical translation.
+        </p>
+        <p class="small">
+          Checks passed: backend Functions build and translation-options test; extension TypeScript check; webapp
+          typecheck; diff checks. Remaining C01 gate: run identical shared legacy/v2/malformed fixtures through all
+          repository normalizers before marking Done. No callable producer or persistent migration is enabled.
+        </p>
+      </article>
+      <article class="entry">
+        <time>June 30, 2026 · G01 service foundation · In progress</time>
+        <p>
+          Added <code>FlashCard.acceptedAnswers</code>/<code>completedAnswer</code>, direction-safe mapping, and real
+          TileGameService candidate-prefix narrowing. The completed branch is spoken and recorded while SRS remains
+          word-level. Analytics were changed from full challenge spreads to an allowlist that excludes text, context,
+          accepted-answer arrays, and completed-answer text.
+        </p>
+        <p class="small">
+          Webapp typecheck passes. Focused unit execution is currently blocked by pre-existing global spec compilation
+          failures in unrelated vocabulary-admin guard and challenge specs. Remaining G01: deterministic stable row
+          planning, TileKit wiring, trailing row behavior, viable-prefix power-up, production Storybook parity, and
+          final visual evidence.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · C01 shared fixture gate · Done</time>
+        <p>
+          Added <code>docs/fixtures/translation-options-v2.json</code> and ran its legacy, ranked, canonical-promotion,
+          deduplication, and malformed-input cases through backend, extension, and webapp normalization. The shared
+          fixture found and fixed canonical casing/whitespace drift in backend and extension, plus invalid option-source
+          acceptance in webapp.
+        </p>
+        <p class="small">
+          Evidence: backend Functions build and shared normalization test pass; extension shared fixture test and
+          TypeScript check pass; webapp shared mapping test passes 7/7 and app typecheck passes. All repository diff
+          checks pass.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · G01 production TileKit core · Needs verification</time>
+        <p>
+          Integrated accepted answers into the real TileGameService, GameComponent, TileKit, and TileRow. Production
+          rows use deterministic per-position unions plus language distractors; viable candidates narrow by prefix;
+          abandoned-path characters remain stable; only trailing rows change with viable maximum length; the power-up
+          reveals every currently viable character; and completed-answer analytics are allowlisted.
+        </p>
+        <p class="small">
+          Added the real-service Storybook story <code>Game/Tile Kit → Production Branching Answers</code>. Browser
+          verification confirmed the longer <code>quick</code> path retains five fully padded rows, Reset clears reused
+          TileRow state, and the shorter <code>fast</code> path advances the active row while trimming only the fifth
+          row. No browser errors. App and Storybook typechecks pass. Remaining before Done: final visual-regression
+          baseline/artifacts and removal of the isolated prototype after parity approval.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · B01 CEFR deck schema v2 · Needs verification</time>
+        <p>
+          Backend CEFR generation now requires one to five ranked, accepted OpenAI translation options for the exact
+          generated source context while preserving canonical <code>translation</code> at rank zero. New publishes use
+          <code>v2-*</code> versions and metadata schema 2; legacy v1 deck reads normalize to one canonical accepted
+          option. The public callable and response wrapper remain unchanged and each word gains only additive
+          <code>translationOptions</code>/<code>translationOptionsVersion</code> fields.
+        </p>
+        <p class="small">
+          Webapp CEFR cards now remain source-to-target because no independently generated reverse option set exists.
+          Version-2 options flow through the shared mapper; v1 or stale option-shaped records remain canonical-only.
+          Assessment traces use the completed answer’s grapheme length and record accepted-answer count, while estimator
+          scoring remains unchanged pending calibration. Backend translation-option and vocabulary-deck tests pass;
+          webapp shared mapping tests pass 7/7 and typechecks pass. Remaining before Done: generate a bounded emulator
+          deck, exercise the complete CEFR game/results flow, and review estimator behavior with multi-answer items.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · E01 ranked selection translation · In progress</time>
+        <p>
+          Started a separate authenticated backend option callable so the existing selection translation can remain
+          fast and legacy-compatible. In parallel, extension work is adding optional ranked-answer transport/state and
+          a compact primary-plus-alternatives bubble presentation. This slice explicitly excludes highlighted-word
+          hover resolution, caching, dwell, and quiz grading, which remain Q01/Q02.
+        </p>
+        <p class="small">
+          A one-time thread continuation is scheduled for 13:40 Europe/Berlin to resume from this roadmap and current
+          uncommitted repository state.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · E01 ranked selection translation · Needs verification</time>
+        <p>
+          Added authenticated callable <code>resolveSelectionTranslationOptions</code> without changing the existing
+          fast <code>translate</code> path. It accepts bounded source/target text and optional source sentence, uses the
+          small translation model, and returns a normalized version-2 answer set with the existing primary forcibly
+          retained at rank zero. No persistence or cache is introduced in E01.
+        </p>
+        <p class="small">
+          Extension selection translation now renders immediately, resolves ranked options asynchronously, ignores
+          stale responses, fails softly against older backends, and refreshes options after manual primary edits. The
+          playground’s ranked-translation scenario shows primary, part of speech, and accepted alternatives while
+          keeping related meanings out of the accepted list. Backend build and focused tests pass; extension typecheck,
+          shared fixture test, and center-placement browser verification pass with no console errors. Remaining before
+          Done: emulator-backed callable delivery through a loaded extension, edge/nested-scroll checks, and final
+          visual artifacts.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Q01 current-context hover resolver · In progress</time>
+        <p>
+          Added authenticated <code>resolveContextualReviewAnswers</code> with stored-word ownership checks, normalized
+          sentence/language validation, SHA-256 context fingerprinting, and a 24-hour per-user/per-word cache capped at
+          eight entries. The cache persists answer sets, fingerprints, and timestamps only—never raw browsing context.
+          Extension due highlights now enter a blocking resolving state immediately, delay the request for 200 ms of
+          intentional hover, cancel on leave, extract the exact-occurrence sentence, and use a 64-entry/10-minute
+          page-local LRU that deduplicates in-flight requests and rejects stale responses.
+        </p>
+        <p class="small">
+          Backend build and focused contextual-review tests pass. Extension typecheck and playground build pass.
+          Deterministic resolving and fallback scenarios render without console errors; nested-scroll fallback remains
+          anchored and playable. Remaining before Q01 can leave In progress: add focused extractor/cache tests, run the
+          callable through emulators and a loaded extension, and ensure resolver fallback/ambiguity cannot schedule a
+          negative SRS result. Multi-answer grading itself remains Q02.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Q01 resolver safety and tests · Needs verification</time>
+        <p>
+          Added focused exact-occurrence extraction and page-cache tests covering repeated words, editable/Stickly
+          surface exclusion, whitespace normalization, bounded context, in-flight coalescing, failure retry, and LRU
+          eviction. Fallback reviews now remain playable but cannot send <code>QuizFailed</code>, mark highlights
+          failed, or otherwise schedule a negative SRS result after wrong attempts, reveal, or give-up. Correct saved
+          answers may still schedule positive progress.
+        </p>
+        <p class="small">
+          Extension contextual-review tests, TypeScript, playground build, and diff checks pass. Nested-scroll fallback
+          remains visible and has no console errors. Remaining Q01 gate: emulator-backed callable delivery through a
+          loaded extension; final visual artifacts are deferred until handoff.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Q02 multi-answer inline quiz · Needs verification</time>
+        <p>
+          Replaced singular grading in the production QuizController with ranked accepted candidates. Typing narrows
+          viable answers and retargets hints/feedback; any exact accepted option succeeds; related meanings remain
+          excluded. Prefix collisions such as <code>fast</code>/<code>faster</code> pause on the shorter exact answer
+          and offer an explicit Enter choice. Each previous attempt keeps the candidate it was evaluated against, and
+          success feedback names the answer actually completed.
+        </p>
+        <p class="small">
+          Added pure candidate-engine tests and a deterministic
+          <code>quiz-multi-answer</code> playground scenario. Live browser checks confirmed both the explicit
+          <code>fast</code> branch and continued <code>faster</code> branch, plus independent <code>rapid</code>
+          completion, with no console errors. Extension option/context tests, TypeScript, and playground build pass.
+          The matched option ID now passes through the backend’s bounded review-metadata sanitizer into the review log
+          without storing answer text. Backend build and focused tests pass. Remaining Q02 gates: run the
+          loaded-extension flow against emulators and produce final visual artifacts.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Loaded-extension critique: resolver stuck loading</time>
+        <p>
+          Reproduced the reported Arc behavior on a due <code>date</code> highlight: the callable was dispatched and
+          completed in the emulator, while the inline quiz remained on “Checking this meaning…”. Re-highlighting and
+          moving from the mark into the newly positioned bubble could invalidate the in-flight interaction token or
+          disconnect the original mark, causing a valid response to be ignored without clearing loading state.
+        </p>
+        <p class="small">
+          Updated hover cancellation so mouse-leave and routine re-highlighting cancel only an unstarted dwell;
+          already-started responses remain eligible and the translator’s current-word check remains the authoritative
+          stale-response guard. Added a tested 15-second client timeout so a broken runtime-message/backend boundary
+          always transitions to the safe, non-punitive saved-translation fallback instead of spinning indefinitely.
+          Extension contextual-review tests, TypeScript, and diff checks pass. The rebuilt content script was loaded
+          in Arc and the callable dispatch was observed; a final same-word replay is still required because the live
+          browser was navigated to a different test word during verification.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Stable resolver UI, exact-occurrence preload, and continuation affordance</time>
+        <p>
+          The inline quiz now keeps its answer slots, footer, and dimensions mounted while contextual answers resolve;
+          the resolving state only dims and disables that stable shell. Longer viable answers are indicated by a
+          restrained tail of smaller dashed “idle” slots, which disappears as the learner commits to a shorter-only
+          prefix. The affordance has an accessible explanation and never reveals a future character.
+        </p>
+        <p class="small">
+          The page-local LRU now retains resolved values as well as in-flight promises, including a late success after
+          a presentation timeout. Exact word/language/version/sentence hits are checked and applied in the same event
+          turn before the bubble opens. Verified in the loaded Arc extension on the same highlighted
+          <code>bark</code> sentence: first hover retained a stable six-slot quiz while resolving; after leaving and
+          reopening that exact occurrence, the quiz appeared directly with no “Checking this meaning…” frame.
+          Contextual-review tests, translation-option tests, TypeScript, development bundle, and diff checks pass.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Microsoft dictionary-first vertical slice</time>
+        <p>
+          Added authenticated <code>lookupDictionary</code> and <code>attachDictionaryData</code> callables. The lookup
+          uses Microsoft Translator Dictionary Lookup v3 with the <code>westeurope</code> region, normalizes up to eight
+          translations and their lexical metadata, and treats an empty HTTP 200 result as a normal miss. The extension
+          now launches dictionary lookup alongside the existing contextual translation, merges the DeepL translation
+          as rank-zero, stores the result on <code>users/{uid}/words/{wordId}</code>, and calls OpenAI only on a
+          Microsoft miss.
+        </p>
+        <p class="small">
+          Highlight quizzes now load the stored <code>translationOptions</code> directly and do not invoke the
+          sentence-scoped resolver. If Microsoft wins the initial race, the bubble shows its lexical options beside a
+          stable contextual-translation skeleton until DeepL completes; an empty dictionary result renders no lexical
+          section. The production TileKit already consumes this same field. Backend TypeScript,
+          Microsoft-response normalization tests, translation-option tests, extension TypeScript, focused quiz/cache
+          tests, the development bundle, and diff checks pass. Runtime verification remains blocked only on installing
+          the new <code>MICROSOFT_TRANSLATOR_API_KEY</code> secret in the emulator/deployed Functions environment.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Uniform TileKit rows</time>
+        <p>
+          Tile generation now computes a single challenge-wide tile count before building rows. Every generated row
+          uses that count, while the canonical and accepted-answer character paths remain unchanged.
+        </p>
+        <p class="small">
+          Verified in the live <code>Game/Tile Kit/Production Branching Answers</code> story: the initial
+          <code>fast / quick</code> stack rendered row counts <code>[4, 4, 4, 4, 4]</code>; selecting
+          <code>f</code> shortened the viable path to four rows while preserving <code>[4, 4, 4, 4]</code>.
+          Webapp TypeScript passes. Focused Angular unit execution remains blocked by unrelated pre-existing compile
+          failures in vocabulary-admin and challenge component specs.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Stable shuffled TileKit rows</time>
+        <p>
+          Added deterministic per-challenge Fisher–Yates shuffling after each row has collected its accepted-answer
+          characters and difficulty-controlled distractors. A branch interaction does not reorder existing tiles;
+          starting a new challenge produces a new seeded layout.
+        </p>
+        <p class="small">
+          Focused TileKit tests pass (8/8), including stable repetition and a changed layout for a new plan. The live
+          production branching story rendered four tiles per row with first-row order
+          <code>[f, w, l, q]</code>; selecting the fourth-column <code>q</code> preserved all five rows and their
+          exact order. Webapp TypeScript passes and the browser console has no errors.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · Bidirectional Microsoft dictionary answers</time>
+        <p>
+          Microsoft back-translations now survive normalization and persistence on their exact ranked translation
+          option. The webapp can choose any accepted target-language option as a reverse prompt and validates the
+          source answer against only that option’s back-translations. The extension likewise creates reverse
+          in-memory words for every accepted dictionary option.
+        </p>
+        <p class="small">
+          Existing records fall back to matching persisted <code>dictionaryEntries</code>, so no migration is
+          required. Backend build and Microsoft normalization test pass; webapp TypeScript and focused flashcard tests
+          pass (8/8); extension TypeScript passes.
+        </p>
+      </article>
+      <article class="entry">
+        <time>July 1, 2026 · CEFR dictionary enrichment and bidirectional testing</time>
+        <p>
+          Administrative CEFR deck prewarming now enriches generated words through Microsoft Dictionary in bounded
+          batches of eight. Successful results replace the generated answer options with ranked dictionary options
+          carrying per-sense back-translations; a missing or failed lookup retains the OpenAI-generated options and
+          does not block publication.
+        </p>
+        <p class="small">
+          The CEFR UI now samples both learning-to-native and native-to-learning cards through the shared flashcard
+          reversal logic. Backend build and Microsoft normalization test pass; webapp TypeScript and focused CEFR plus
+          flashcard tests pass (13/13). Existing published language-pair decks require one admin prewarm before they
+          contain Microsoft data.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Agent handoff protocol</h2>
+    <div class="card">
+      <ol>
+        <li>Read this roadmap, workspace <code>AGENTS.md</code>, repository <code>AGENTS.md</code>, repository <code>README.md</code>, and <code>docs/product/product-experience.md</code>.</li>
+        <li>Choose one work-package ID whose dependencies are satisfied.</li>
+        <li>Work token-efficiently: do not repeat completed audits, load only task-relevant files, and stop when the bounded acceptance criteria are met.</li>
+        <li>Do not invent a new options schema. Update this roadmap if the shared contract must change.</li>
+        <li>Preserve legacy <code>translation</code> and tolerate missing/malformed options.</li>
+        <li>Report repositories, contracts, checks, compatibility concerns, and the exact roadmap execution note.</li>
+        <li>Only mark work Done after its runtime and migration acceptance criteria are verified.</li>
+        <li>Add later product critique to the critique log with the resulting decision and affected work packages.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+</body>
+</html>
