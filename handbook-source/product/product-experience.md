@@ -4,6 +4,10 @@
 
 This document describes the current user experience across the browser extension and webapp. It is intended to help product, design, analytics, and engineering agents reason about the same product behavior.
 
+## Accepted engagement changes under review
+
+The [2 October 2026 decision](decisions.md#engagement-improvements-2-october-2026) adds a confirmed-save onboarding bridge to real reading, explicit Reveal and Keep reading actions with persistence feedback, and a Less highlighting shortcut to due reviews only. These changes are accepted for implementation and PR review, not verified as deployed. Existing selection, highlighting and practice contracts remain independent. The [3 October interface refinement](decisions.md#engagement-interface-refinement-3-october-2026) makes highlight choices reversible, condenses the popup and menu, pairs review actions, and opens the existing dictionary sheet after solving a word.
+
 ## Core Browsing Loop
 
 1. The user encounters an unfamiliar word while browsing.

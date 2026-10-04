@@ -15,7 +15,7 @@ Translation answers an immediate question. Saved vocabulary carries that answer 
 
 Purple marks an ordinary remembered word. Orange marks a due review. Green marks a completed successful review. Preserve the distinction between the prompt, answer correctness, and persistence.
 
-Explore [Translation](story:components-translator--translation), [Inline recall](story:components-inline-quiz--typed), [Review history](story:components-inline-quiz--history), and [Saved success](story:components-inline-quiz--success-saved).
+Explore [Translation](story:components-translator--translation), [Inline recall](story:surfaces-inline-review--typed), [Review history](story:surfaces-inline-review--history), and [Saved success](story:surfaces-inline-review--success-saved).
 
 ## Selection translation is its own system
 

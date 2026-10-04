@@ -1,6 +1,31 @@
-# Understand more. Keep reading.
+# Learn vocabulary from the articles you already read.
 
 Stickly helps a language learner cross the gap between encountering an unfamiliar word and being able to understand or use it later, without turning ordinary reading into a compulsory lesson.
+
+## Category and distinctive mechanism
+
+The primary category sentence for public marketing is **Learn vocabulary from
+the articles you already read.** Its German counterpart is **Lerne Vokabeln aus
+den Artikeln, die du ohnehin liest.** Articles are the clear opening example;
+the same deliberate workflow also applies to supported blogs, coursework,
+documentation and forums.
+
+Explain the mechanism immediately: **look up a word → save it → meet it on
+another website → recall it in place → update its next review.** A saved word
+resurfaces when it actually occurs in eligible later reading. Review scheduling
+does not guarantee that a website will contain the word, and passive exposure
+does not count as a successful review. Focused practice remains an optional way
+to review words that do not appear again soon.
+
+Show one word on two clearly distinct pages before foregrounding optional
+games, flashcards, exports or AI practice. Use a static textual explanation
+alongside motion, preserve independent translation/highlight/practice controls,
+and label demonstration content. Comparisons should explain learner fit with
+dated official sources, including when a competing tool is the better choice.
+
+**Status:** accepted positioning on 3 October 2026. Consumer implementation and
+distribution are under review; this decision does not establish learning
+outcomes, production availability or inclusion in search/AI recommendations.
 
 ## The problem to solve
 

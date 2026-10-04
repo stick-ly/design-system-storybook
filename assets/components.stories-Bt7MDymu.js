@@ -1,4 +1,4 @@
-import"./browser-xg2p1WRV.js";import{f as p,e as u,n as t}from"./foundation-page-DpwKphpH.js";import"./icon-B1lV_IqI.js";import"./tokens-BqrQmc1Q.js";import"./accordion-presentation-2DGsMdRP.js";import"./accordion-DGF6Fpw0.js";import"./render-handbook-BqPDaL2Y.js";const m=`# Choose a component by the learner's task
+import"./browser-D-D48LCx.js";import{f as p,e as u,n as t}from"./foundation-page-DpwKphpH.js";import"./icon-DyfOqEUK.js";import"./tokens-BqrQmc1Q.js";import"./accordion-presentation-2DGsMdRP.js";import"./accordion-DGF6Fpw0.js";import"./render-handbook-BqPDaL2Y.js";const m=`# Choose a component by the learner's task
 
 > Status: current component selection and ownership policy.
 > Canonical owner: \`stick-ly/design-system\`. Reviewed 2026-10-02.
@@ -22,9 +22,9 @@ consumer. Examples demonstrate presentation, not deployed product behavior.
 | Switch a small set of local views | Tabs | [Tabs](story:components-navigation--tabs) |
 | Read optional detail without changing route | Accordion | [Accordion](story:components-navigation--accordion) |
 | Open a focused task over the page | Dialog shell | [Dialog](story:components-overlays--dialog) |
-| Show contextual actions | Dropdown / menu | [Dropdown](story:components-overlays--dropdown), [translation menu](story:components-supporting-components--translation-menu) |
+| Show contextual actions | Dropdown / menu | [Dropdown](story:components-overlays--dropdown), [translation menu](story:surfaces-translation-menu--trigger) |
 | Read the selected word and its translation | Translator / dictionary presentation | [Translation](story:components-translator--translation), [dictionary](story:components-dictionary--translation) |
-| Attempt vocabulary recall in the current page | Inline quiz presentation | [Typed quiz](story:components-inline-quiz--typed) |
+| Attempt vocabulary recall in the current page | Inline quiz presentation | [Typed quiz](story:surfaces-inline-review--typed) |
 | Read a brief action result | Toast | [Toast](story:components-toast--message) |
 | Listen or understand loading status | Audio / spinner | [Audio](story:components-audio-and-celebration--audio), [spinner](story:components-icons-and-spinner--spinner-sizes) |
 
@@ -76,6 +76,18 @@ picker, button or overlay renderers recreates the duplication this system remove
 10. Load portable assets locally. Product components do not rely on external
     script/font CDNs, dynamic evaluation or extension-only Chrome globals.
 
+## Field focus stays inside the control
+
+Inputs, textareas, selects and comboboxes keep the same outer dimensions when
+resting, hovered, focused or showing a focused error. Use the action button's
+internal bottom edge as the reference: focus changes the border color and adds
+an inset bottom accent, or danger accent for an invalid field. Do not add an
+external offset shadow that makes a focused control look taller or wider than
+its neighbors. Preserve native padding, selection, resizing and keyboard focus.
+See [Internal focus](story:components-fields--internal-focus) alongside the
+existing field and picker states. This is implemented in shared source; consumer
+package updates and release verification remain separate.
+
 ## Verification and current limits
 
 During iteration, use live Storybook and \`pnpm run typecheck\`. At handoff, run the
@@ -86,7 +98,16 @@ and diff images. Historical extraction evidence is under
 results do not establish current package, production, WebKit or physical-device
 correctness. Context Recall catalog states are retained presentation references,
 not an instruction to restore the retired product feature.
-`,w={title:"Handbook/Foundations/Component selection",parameters:{layout:"fullscreen"}},o={name:"Tasks, components and contracts",render:()=>{const s=p(m,{eyebrow:"Foundations / Components",status:"Current selection policy",sourcePath:"docs/design/components.md"}),i=u(s,"Choosing text entry, select or combobox");i.append(t("h2","Match the control to the decision"));const r=t("div",void 0,"foundation-grid"),c=[{title:"A word to find",description:"Single-line input for a short value.",tag:"stickly-input",label:"Word",value:"linger"},{title:"A short, stable choice",description:"Every option is easy to scan.",tag:"stickly-select",label:"Review mode",value:"inline"},{title:"A language to find",description:"Search helps with a long option list.",tag:"stickly-combobox",label:"Learning language",value:"de"}];for(const e of c){const a=t("section",void 0,"foundation-demo");a.append(t("h3",e.title),t("p",e.description,"foundation-demo-copy"));const n=document.createElement(e.tag);n.setAttribute("label",e.label),n.setAttribute("control-id",`handbook-${e.tag}`),n.setAttribute("theme","dark"),n.value=e.value,e.tag==="stickly-select"&&(n.options=[{value:"inline",label:"Inline review"},{value:"flashcards",label:"Flashcards"},{value:"character",label:"Character review"}]),e.tag==="stickly-combobox"&&(n.options=[["de","Deutsch"],["en","English"],["es","Español"],["fr","Français"],["it","Italiano"],["ja","日本語"],["ar","العربية"],["pt","Português"]].map(([l,d])=>({value:l,label:d}))),a.append(n),r.append(a)}return i.append(r),s}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+
+
+## Compact reading controls
+
+The popup exposes a selected All / Due / Off highlight group without duplicating its value in a summary row. Pending writes disable preference mutations while leaving translation available; errors retain the confirmed selection. A compact Enabled/Disabled on hostname status precedes reversible site access buttons and a quieter Pause/Resume tab action. The canonical popup includes PDF capability states, practice and translation results. The translation menu uses grouped commands and a reversible Highlights submenu, with no explanatory status block. See [popup](story:surfaces-popup--default) and [highlight choices](story:surfaces-translation-menu--highlight-choices).
+
+Optional inline review places Reveal beside Keep reading and keeps its input legend visually quiet. Show the source language in muted text beside the word, and name the expected target language in the typing instruction. Hide an empty submit hint so it does not reserve space between answer tiles and the legend. The solved state offers the consumer-owned dictionary side sheet through an explicit action. Existing consumers opt into dismissal and dictionary controls so presentation changes never introduce actions without handlers. See [optional review](story:surfaces-inline-review--optional-review) and [solved dictionary](story:surfaces-inline-review--solved-dictionary).
+
+The popup PDF default uses a single “Use Stickly for PDFs” switch when the browser supports choosing a default. It stays at the saved value while persistence is pending, and keeps “Open this PDF with Stickly” separate. Unsupported and manual-only capabilities retain their explanatory states.
+`,k={title:"Handbook/Foundations/Component selection",parameters:{layout:"fullscreen"}},o={name:"Tasks, components and contracts",render:()=>{const s=p(m,{eyebrow:"Foundations / Components",status:"Current selection policy",sourcePath:"docs/design/components.md"}),i=u(s,"Choosing text entry, select or combobox");i.append(t("h2","Match the control to the decision"));const r=t("div",void 0,"foundation-grid"),c=[{title:"A word to find",description:"Single-line input for a short value.",tag:"stickly-input",label:"Word",value:"linger"},{title:"A short, stable choice",description:"Every option is easy to scan.",tag:"stickly-select",label:"Review mode",value:"inline"},{title:"A language to find",description:"Search helps with a long option list.",tag:"stickly-combobox",label:"Learning language",value:"de"}];for(const e of c){const a=t("section",void 0,"foundation-demo");a.append(t("h3",e.title),t("p",e.description,"foundation-demo-copy"));const n=document.createElement(e.tag);n.setAttribute("label",e.label),n.setAttribute("control-id",`handbook-${e.tag}`),n.setAttribute("theme","dark"),n.value=e.value,e.tag==="stickly-select"&&(n.options=[{value:"inline",label:"Inline review"},{value:"flashcards",label:"Flashcards"},{value:"character",label:"Character review"}]),e.tag==="stickly-combobox"&&(n.options=[["de","Deutsch"],["en","English"],["es","Español"],["fr","Français"],["it","Italiano"],["ja","日本語"],["ar","العربية"],["pt","Português"]].map(([l,d])=>({value:l,label:d}))),a.append(n),r.append(a)}return i.append(r),s}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
   name: 'Tasks, components and contracts',
   render: () => {
     const page = foundationPage(componentReference, {
@@ -150,4 +171,4 @@ not an instruction to restore the retired product feature.
     section.append(grid);
     return page;
   }
-}`,...o.parameters?.docs?.source}}};const x=["TasksAndContracts"];export{o as TasksAndContracts,x as __namedExportsOrder,w as default};
+}`,...o.parameters?.docs?.source}}};const x=["TasksAndContracts"];export{o as TasksAndContracts,x as __namedExportsOrder,k as default};

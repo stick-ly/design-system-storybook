@@ -1,6 +1,31 @@
-import{r as u}from"./render-handbook-BqPDaL2Y.js";const p=`# Understand more. Keep reading.
+import{r as u}from"./render-handbook-BqPDaL2Y.js";const p=`# Learn vocabulary from the articles you already read.
 
 Stickly helps a language learner cross the gap between encountering an unfamiliar word and being able to understand or use it later, without turning ordinary reading into a compulsory lesson.
+
+## Category and distinctive mechanism
+
+The primary category sentence for public marketing is **Learn vocabulary from
+the articles you already read.** Its German counterpart is **Lerne Vokabeln aus
+den Artikeln, die du ohnehin liest.** Articles are the clear opening example;
+the same deliberate workflow also applies to supported blogs, coursework,
+documentation and forums.
+
+Explain the mechanism immediately: **look up a word → save it → meet it on
+another website → recall it in place → update its next review.** A saved word
+resurfaces when it actually occurs in eligible later reading. Review scheduling
+does not guarantee that a website will contain the word, and passive exposure
+does not count as a successful review. Focused practice remains an optional way
+to review words that do not appear again soon.
+
+Show one word on two clearly distinct pages before foregrounding optional
+games, flashcards, exports or AI practice. Use a static textual explanation
+alongside motion, preserve independent translation/highlight/practice controls,
+and label demonstration content. Comparisons should explain learner fit with
+dated official sources, including when a competing tool is the better choice.
+
+**Status:** accepted positioning on 3 October 2026. Consumer implementation and
+distribution are under review; this decision does not establish learning
+outcomes, production availability or inclusion in search/AI recommendations.
 
 ## The problem to solve
 
@@ -76,7 +101,7 @@ An unrevealed recall attempt differs from opening a translation, listening, read
 
 Describe the actual outcome: correct, revealed, assisted, saved, sync pending, or retry needed. One successful word is not proof of mastery, speaking ability, or a knowledge percentage. Avoid inferring a linguistic diagnosis from character-level mistakes.
 
-Explore [Inline quiz](story:components-inline-quiz--typed) and [Success with pending save](story:components-inline-quiz--success-saving).
+Explore [Inline quiz](story:surfaces-inline-review--typed) and [Success with pending save](story:surfaces-inline-review--success-saving).
 
 ## Progress through ability
 
@@ -122,7 +147,7 @@ Translation answers an immediate question. Saved vocabulary carries that answer 
 
 Purple marks an ordinary remembered word. Orange marks a due review. Green marks a completed successful review. Preserve the distinction between the prompt, answer correctness, and persistence.
 
-Explore [Translation](story:components-translator--translation), [Inline recall](story:components-inline-quiz--typed), [Review history](story:components-inline-quiz--history), and [Saved success](story:components-inline-quiz--success-saved).
+Explore [Translation](story:components-translator--translation), [Inline recall](story:surfaces-inline-review--typed), [Review history](story:surfaces-inline-review--history), and [Saved success](story:surfaces-inline-review--success-saved).
 
 ## Selection translation is its own system
 
@@ -169,7 +194,7 @@ Sources: [Product experience reference](product-experience.md), [Apple product r
 
 Stickly begins in material the learner has a reason to read. Product direction for any future reading discovery should preserve that reason, the real author, and the source's authority.
 
-> **Direction, not delivery:** these constraints guide future source discovery and comprehensible-input work. A source catalog, Reading Radar, or personalized editorial feed is not established as shipped by this handbook or by a component story.
+> **Accepted onboarding slice, production unverified:** the [2 October engagement decision](decisions.md#engagement-improvements-2-october-2026) authorizes a small topic-selected sample catalog after the first saved word. Broader reading discovery and personalization remain product direction. A component story does not establish shipment.
 
 ## Real authorship and canonical sources
 
@@ -210,14 +235,14 @@ Use a working private reporting flow before presenting Report as an actionable c
 5. What personal data is used, for which purpose, and with which controls?
 6. How will sustainable reading, comprehension, and appropriate later use be evaluated?
 
-Until those questions have an accepted decision record and verification, keep the feature exploratory and avoid public delivery claims.
+The onboarding sample catalog has the accepted decision above. Additional source features still need their own decision record and verification; avoid public delivery claims without release evidence.
 
 ## Source and status
 
-**Status:** source discovery is product direction; this page consolidates the stated source-respecting priorities and existing privacy/enrichment constraints. It adds no runtime feature or data-processing authorization.
+**Status:** the bounded onboarding catalog is accepted for implementation; broader source discovery remains product direction. Consumer PRs carry source verification and runtime evidence. No production delivery or reading-suitability claim is made.
 
-Sources: [Product experience reference](product-experience.md), [Learning experience exploration: 8 September 2026](../design/learning-experience-exploration-2026-09-08/brief.md), and [Context Recall experiment](https://github.com/stick-ly/stickly-workspace/blob/main/docs/experiments/context-recall-experiment.md). The source-catalog direction must receive a specific decision record before implementation.
-`,f=`# Do's and don'ts
+Sources: [Product experience reference](product-experience.md), [Learning experience exploration: 8 September 2026](../design/learning-experience-exploration-2026-09-08/brief.md), and [Context Recall experiment](https://github.com/stick-ly/stickly-workspace/blob/main/docs/experiments/context-recall-experiment.md). The bounded onboarding catalog is governed by the 2 October engagement decision.
+`,b=`# Do's and don'ts
 
 Use these pairs when designing a surface, reviewing an implementation, or choosing the next product experiment. Each pair connects a learner need to a concrete rule.
 
@@ -262,7 +287,7 @@ Explore [Fields](story:components-fields--input-states), [Pickers](story:compone
 Update the [Decision register](story:handbook-product--decisions) when a rule changes. Update the canonical Markdown first; Storybook renders it directly. Keep component interaction states and consumer integration evidence separate, and preserve before/after comparisons for visible changes.
 
 Sources: [Product experience reference](product-experience.md), [Design tokens](../design/design-tokens.md), [Composition](../design/design-composition.md), [Apple product redesign](references/PRODUCT_REDESIGN.md), and [Learning experience exploration](../design/learning-experience-exploration-2026-09-08/brief.md).
-`,b=`# Decisions that remain reviewable
+`,f=`# Decisions that remain reviewable
 
 Keep the reason, status, scope, and evidence beside a product decision. A living system records changes instead of letting old plans silently become current requirements.
 
@@ -271,6 +296,7 @@ Keep the reason, status, scope, and evidence beside a product decision. A living
 | Decision | Status | Authority and consequence |
 | --- | --- | --- |
 | Translate now, save what matters, remember later | Accepted product direction | Existing product reference and Apple redesign; preserve the return to reading. |
+| Vocabulary from the articles you already read | Accepted on 3 October 2026; implementation under review | [Category and mechanism](problem-and-audience.md#category-and-distinctive-mechanism): show the same saved word on another website and honest inline recall before optional features. |
 | Selection translation and remembered-word highlighting are separate systems | Accepted policy | Product reference; keep controls and measurements independent. |
 | Explicit selection action and documented per-word highlight modes | Current documented policy | Detailed product reference; conflicting root-guide intent suppression and global density budget are superseded proposals. |
 | One useful layer in the existing bubble | Selected direction with dated implementation handoff | Learning exploration's 28 September handoff; optional sense-matched content, no new reading destination in that slice. |
@@ -278,7 +304,9 @@ Keep the reason, status, scope, and evidence beside a product decision. A living
 | Translate, Review, Game, and Words as native destinations | Accepted Apple product direction | Apple redesign; native Game parity supersedes the older embedded-web beta recommendation. |
 | Semantic tokens and shared native component authority | Accepted architecture/design contract | Token/composition references; consumer services and product controllers remain separate. |
 | Context Recall | Proposed experiment; production unverified | Historical experiment contract and product reference; retained source/catalog is not release proof. |
-| Source-respecting reading discovery | Direction requiring a specific implementation decision | Real authorship, canonical provenance, editorial trust, explicit learner input, and defined privacy boundaries. No delivered catalog claim. |
+| First saved word to real reading | Accepted on 2 October 2026; implementation under review | Onboarding offers own reading or a bounded topic-selected source sample. See the [engagement decision](#engagement-improvements-2-october-2026). |
+| Optional brief review and quieter highlights | Accepted on 2 October 2026; implementation under review | Reveal persists an unsuccessful review with honest save state; Keep reading dismisses; Less highlighting selects due-only mode. |
+| Stable field dimensions across interaction states | Implemented locally, 2026-10-03 | [Component guide](../design/components.md#field-focus-stays-inside-the-control); inset focus and error accents follow the button bottom edge. Consumer releases remain separate. |
 
 ## Status vocabulary
 
@@ -338,11 +366,47 @@ Supersedes / superseded by:
 The [Product reference](story:handbook-product--product-reference) retains the original behavior, survey, retention, and analytics caveats. [Platform references](story:handbook-product-references--index) preserve native redesign, journeys, improvements, earlier Game evaluation, and the historical translation-options roadmap.
 
 Private source references require access. Missing access must not be replaced by invented summaries or by copying credentials or sensitive research into the public bundle.
-`,y=`# Stickly Product Experience Reference
+
+## Engagement improvements, 2 October 2026
+
+**Owner:** Alexander Oemisch (product acceptance); implementation agents prepare source and evidence for review.
+**Status:** accepted direction, implementation under review. No deployment or retention improvement is established.
+
+The learner needs a clear connection between the first saved word and their own reading, with optional review and accessible control over page decoration. The selected behavior is:
+
+- After confirmed storage, say “Saved. Stickly can help you remember this word when you encounter it again.” Offer “Try it on something you read,” with own-reading guidance or an optional topic choice. Account creation remains available.
+- Topics are Science and nature, Culture and history, and Everyday life. A static sample catalog covers English, German, Spanish, French, Italian, Japanese, Ukrainian, Brazilian Portuguese, and Vietnamese. Each link identifies its publisher or author, title, and language and opens the canonical original in a new tab. Unknown languages or unavailable samples retain the own-reading path. Topic choices are session-local, with no interest profile.
+- A due inline review offers Reveal and Keep reading. Reveal shows the meaning immediately and saves an unsuccessful review. Scheduling appears only after authoritative persistence. Failed saves retain meaning and provide retry using the same attempt ID. Keep reading dismisses without an additional review write. Existing successful-answer and confidence behavior remains.
+- Less highlighting changes All saved words to Due reviews only; it preserves selection translation and practice preferences. Highlights off remains a separate choice. Undo restores the exact previous mode.
+
+This bounded source list was chosen over a recommendation system because interests and reading ability are unknown. Samples are topic choices, not personalized suitability or level claims. Source accessibility is checked without login at inclusion time and can change later.
+
+Review, selection translation, highlighting, and practice remain separate systems. New analytics are explicit categorical actions only, with no page text, vocabulary, URLs, hostnames, or selection-exposure stream. Existing consent and identity handling applies.
+
+Acceptance requires consumer persistence and dismissal tests, preference synchronization and exact Undo, desktop/mobile visual evidence, shared component contracts, and emulator integration. Source tests, browser fixtures, physical Safari behavior, and production retention remain distinct evidence. Merging and release require separate authorization.
+
+
+## Engagement interface refinement, 3 October 2026
+
+**Status:** accepted direction; source implementation and visual review in progress. No deployment claim.
+
+The first review exposed excessive onboarding copy, a popup that only reduced highlights, and a menu mixing commands with explanatory status. Keep each surface focused on its immediate task:
+
+- Onboarding presents one next step at a time. After a confirmed stored word, the reading exercise and its actual translation remain visible until the learner explicitly chooses Continue; only then does the compact reading bridge replace them. There is no automatic transition timer. Its interface chrome is excluded from remembered-word decoration while the reading exercise remains available for manual translation.
+- The popup has one clearly selected All / Due / Off highlight control. Every mode, site access, and tab access can be restored directly, without depending on Undo. Persistent website access uses compact Enable/Disable site buttons beside the actual hostname status; Pause this tab and Resume this tab remain separate temporary actions. The controls retain confirmed state while saving and show a local failure rather than success. Translation remains within the compact initial popup view. Longer explanations of independent preferences belong in settings.
+- The translation menu contains compact grouped commands. A Highlights submenu exposes all three modes and marks the current selection. Less highlighting is an additional shortcut only while All is active. It never becomes a disabled informational row. Submenus support keyboard entry, return, and Escape.
+- Reveal and Keep reading sit beside each other as equally accessible actions. The input legend has no divider. A solved word offers Open dictionary, which opens the existing side sheet for that stored word instead of another inline expansion. Review persistence, confidence, and authoritative scheduling retain their existing behavior.
+
+Verify reversibility, failure and pending states, keyboard access, actual dictionary opening, narrow layouts, and desktop/mobile before/after evidence. These interface corrections do not establish a retention effect.
+`,v=`# Stickly Product Experience Reference
 
 > **Reference status, 2 October 2026:** preserved full product reference from the coordination workspace. Its explicit selection action and per-word highlight modes are the concrete policy authority where older guide proposals conflict. Context Recall remains proposed and experimental; source/catalog presence is not production evidence. Research figures retain their original observation windows. Repository-relative implementation paths below refer to the named consumer repositories. This migration does not certify every described runtime or deployment.
 
 This document describes the current user experience across the browser extension and webapp. It is intended to help product, design, analytics, and engineering agents reason about the same product behavior.
+
+## Accepted engagement changes under review
+
+The [2 October 2026 decision](decisions.md#engagement-improvements-2-october-2026) adds a confirmed-save onboarding bridge to real reading, explicit Reveal and Keep reading actions with persistence feedback, and a Less highlighting shortcut to due reviews only. These changes are accepted for implementation and PR review, not verified as deployed. Existing selection, highlighting and practice contracts remain independent. The [3 October interface refinement](decisions.md#engagement-interface-refinement-3-october-2026) makes highlight choices reversible, condenses the popup and menu, pairs review actions, and opens the existing dictionary sheet after solving a word.
 
 ## Core Browsing Loop
 
@@ -589,7 +653,7 @@ Instrument the two interruption classes separately:
 Do not capture selected text, surrounding page text, or full URLs in analytics. Report counts, timing, language codes, surface categories, and suppression reasons.
 
 See \`../archive/research/engagement-roadmap.html\` for the historical executable plan.
-`,w={title:"Handbook/Product",parameters:{layout:"fullscreen",controls:{disable:!0},a11y:{test:"todo"}}},e=(c,l,d)=>({render:()=>u(c,{sourcePath:`docs/product/${l}.md`,status:d})}),n=e(p,"problem-and-audience","Product purpose"),t=e(h,"principles","Design guidance"),a=e(m,"learning-experience","Policy and experience"),r=e(g,"source-respecting-reading","Direction · exploratory catalog"),i={...e(f,"dos-and-donts","Review guide"),name:"Do's and don'ts"},o=e(b,"decisions","Decision register"),s=e(y,"product-experience","Full dated reference");n.parameters={...n.parameters,docs:{...n.parameters?.docs,source:{originalSource:"page(problem, 'problem-and-audience', 'Product purpose')",...n.parameters?.docs?.source}}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:"page(principles, 'principles', 'Design guidance')",...t.parameters?.docs?.source}}};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:"page(learning, 'learning-experience', 'Policy and experience')",...a.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:"page(sources, 'source-respecting-reading', 'Direction · exploratory catalog')",...r.parameters?.docs?.source}}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:`{
+`,w={title:"Handbook/Product",parameters:{layout:"fullscreen",controls:{disable:!0},a11y:{test:"todo"}}},e=(c,l,d)=>({render:()=>u(c,{sourcePath:`docs/product/${l}.md`,status:d})}),n=e(p,"problem-and-audience","Product purpose"),t=e(h,"principles","Design guidance"),a=e(m,"learning-experience","Policy and experience"),i=e(g,"source-respecting-reading","Direction · exploratory catalog"),r={...e(b,"dos-and-donts","Review guide"),name:"Do's and don'ts"},o=e(f,"decisions","Decision register"),s=e(v,"product-experience","Full dated reference");n.parameters={...n.parameters,docs:{...n.parameters?.docs,source:{originalSource:"page(problem, 'problem-and-audience', 'Product purpose')",...n.parameters?.docs?.source}}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:"page(principles, 'principles', 'Design guidance')",...t.parameters?.docs?.source}}};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:"page(learning, 'learning-experience', 'Policy and experience')",...a.parameters?.docs?.source}}};i.parameters={...i.parameters,docs:{...i.parameters?.docs,source:{originalSource:"page(sources, 'source-respecting-reading', 'Direction · exploratory catalog')",...i.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
   ...page(dos, 'dos-and-donts', 'Review guide'),
   name: "Do's and don'ts"
-}`,...i.parameters?.docs?.source}}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:"page(decisions, 'decisions', 'Decision register')",...o.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:"page(reference, 'product-experience', 'Full dated reference')",...s.parameters?.docs?.source}}};const x=["ProblemAndAudience","Principles","LearningExperience","SourceRespectingReading","DosAndDonts","Decisions","ProductReference"];export{o as Decisions,i as DosAndDonts,a as LearningExperience,t as Principles,n as ProblemAndAudience,s as ProductReference,r as SourceRespectingReading,x as __namedExportsOrder,w as default};
+}`,...r.parameters?.docs?.source}}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:"page(decisions, 'decisions', 'Decision register')",...o.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:"page(reference, 'product-experience', 'Full dated reference')",...s.parameters?.docs?.source}}};const x=["ProblemAndAudience","Principles","LearningExperience","SourceRespectingReading","DosAndDonts","Decisions","ProductReference"];export{o as Decisions,r as DosAndDonts,a as LearningExperience,t as Principles,n as ProblemAndAudience,s as ProductReference,i as SourceRespectingReading,x as __namedExportsOrder,w as default};

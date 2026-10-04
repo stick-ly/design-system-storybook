@@ -1,7 +1,9 @@
 {
   "sourceRepository": "stick-ly/design-system",
-  "sourceCommit": "240154a19c6b0b75c95e536c48ba08f70b911f03",
+  "sourceCommit": "d481c050a3be18a23e12603cc14655aa61104b2e",
   "sourceDirty": false,
-  "indexSHA256": "1a4046decc230243dd20784992c6ce30f74b73c176e537bb8b185c0a05cd0cf4",
-  "publishedAt": "2026-10-02T08:14:34.865Z"
+  "indexSHA256": "89c1b763216e2043e57c40079293b7007563518b8c0c0584408217116c4c5c66",
+  "publishedAt": "2026-10-04T09:49:40.762432+00:00",
+  "buildRun": 37193104573,
+  "artifactId": 11300245759
 }

@@ -2,7 +2,7 @@
 
 Stickly begins in material the learner has a reason to read. Product direction for any future reading discovery should preserve that reason, the real author, and the source's authority.
 
-> **Direction, not delivery:** these constraints guide future source discovery and comprehensible-input work. A source catalog, Reading Radar, or personalized editorial feed is not established as shipped by this handbook or by a component story.
+> **Accepted onboarding slice, production unverified:** the [2 October engagement decision](decisions.md#engagement-improvements-2-october-2026) authorizes a small topic-selected sample catalog after the first saved word. Broader reading discovery and personalization remain product direction. A component story does not establish shipment.
 
 ## Real authorship and canonical sources
 
@@ -43,10 +43,10 @@ Use a working private reporting flow before presenting Report as an actionable c
 5. What personal data is used, for which purpose, and with which controls?
 6. How will sustainable reading, comprehension, and appropriate later use be evaluated?
 
-Until those questions have an accepted decision record and verification, keep the feature exploratory and avoid public delivery claims.
+The onboarding sample catalog has the accepted decision above. Additional source features still need their own decision record and verification; avoid public delivery claims without release evidence.
 
 ## Source and status
 
-**Status:** source discovery is product direction; this page consolidates the stated source-respecting priorities and existing privacy/enrichment constraints. It adds no runtime feature or data-processing authorization.
+**Status:** the bounded onboarding catalog is accepted for implementation; broader source discovery remains product direction. Consumer PRs carry source verification and runtime evidence. No production delivery or reading-suitability claim is made.
 
-Sources: [Product experience reference](product-experience.md), [Learning experience exploration: 8 September 2026](../design/learning-experience-exploration-2026-09-08/brief.md), and [Context Recall experiment](https://github.com/stick-ly/stickly-workspace/blob/main/docs/experiments/context-recall-experiment.md). The source-catalog direction must receive a specific decision record before implementation.
+Sources: [Product experience reference](product-experience.md), [Learning experience exploration: 8 September 2026](../design/learning-experience-exploration-2026-09-08/brief.md), and [Context Recall experiment](https://github.com/stick-ly/stickly-workspace/blob/main/docs/experiments/context-recall-experiment.md). The bounded onboarding catalog is governed by the 2 October engagement decision.

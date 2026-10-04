@@ -22,7 +22,7 @@ An unrevealed recall attempt differs from opening a translation, listening, read
 
 Describe the actual outcome: correct, revealed, assisted, saved, sync pending, or retry needed. One successful word is not proof of mastery, speaking ability, or a knowledge percentage. Avoid inferring a linguistic diagnosis from character-level mistakes.
 
-Explore [Inline quiz](story:components-inline-quiz--typed) and [Success with pending save](story:components-inline-quiz--success-saving).
+Explore [Inline quiz](story:surfaces-inline-review--typed) and [Success with pending save](story:surfaces-inline-review--success-saving).
 
 ## Progress through ability
 
